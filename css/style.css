@@ -162,10 +162,23 @@ hr.quiet {
 .site-header.is-scrolled {
   padding-top: 12px;
   padding-bottom: 12px;
+}
+
+/* frosted bar lives on a pseudo-element: backdrop-filter on the header
+   itself would turn it into the containing block for the fixed-position
+   mobile nav overlay, pinning the overlay to the header strip */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: color-mix(in srgb, var(--bone) 88%, transparent);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
 }
+.site-header.is-scrolled::before { opacity: 1; }
 
 .brand {
   font-family: var(--serif);
