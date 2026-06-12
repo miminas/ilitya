@@ -311,7 +311,12 @@ hr.quiet {
   pointer-events: none;
   display: none;
 }
-.has-cursor .cursor { display: block; }
+.has-cursor .cursor { display: block; will-change: transform; }
+.cursor-trail {
+  position: absolute;
+  top: 0; left: 0;
+  will-change: transform;
+}
 .cursor-dot {
   position: absolute;
   top: -4px; left: -4px;

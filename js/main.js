@@ -49,21 +49,25 @@
     var cursor = document.createElement("div");
     cursor.className = "cursor";
     cursor.innerHTML =
-      '<span class="cursor-dot"></span><span class="cursor-label"></span>';
+      '<span class="cursor-dot"></span><span class="cursor-trail"><span class="cursor-label"></span></span>';
     document.body.appendChild(cursor);
     document.body.classList.add("has-cursor");
 
     var label = cursor.querySelector(".cursor-label");
-    var x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y;
+    var trail = cursor.querySelector(".cursor-trail");
+    var tx = innerWidth / 2, ty = innerHeight / 2, lx = tx, ly = ty;
 
+    /* the dot is the pointer: 1:1, no smoothing, updated straight
+       from the event for minimum latency */
     addEventListener("mousemove", function (e) {
       tx = e.clientX;
       ty = e.clientY;
       if (!cursor.classList.contains("is-active")) {
-        x = tx;
-        y = ty;
+        lx = tx;
+        ly = ty;
         cursor.classList.add("is-active");
       }
+      cursor.style.transform = "translate(" + tx + "px," + ty + "px)";
     });
     document.addEventListener("mouseleave", function () {
       cursor.classList.remove("is-active");
@@ -85,10 +89,11 @@
       });
     });
 
+    /* only the label trails, softly */
     (function loop() {
-      x += (tx - x) * 0.16;
-      y += (ty - y) * 0.16;
-      cursor.style.transform = "translate(" + x + "px," + y + "px)";
+      lx += (tx - lx) * 0.22;
+      ly += (ty - ly) * 0.22;
+      trail.style.transform = "translate(" + (lx - tx) + "px," + (ly - ty) + "px)";
       requestAnimationFrame(loop);
     })();
   }
