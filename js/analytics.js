@@ -7,7 +7,7 @@
    2. Paste the project ID below (Settings → Overview → Project ID),
       commit and push. Recordings appear within a few minutes of a visit. */
 
-var CLARITY_PROJECT_ID = ""; /* e.g. "abc1de2fgh" */
+var CLARITY_PROJECT_ID = "x5ssg9p6zh";
 
 (function (c, l, a, r, i, t, y) {
   if (!i) return;
