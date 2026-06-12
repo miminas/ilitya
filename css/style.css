@@ -148,8 +148,17 @@ hr.quiet {
   justify-content: space-between;
   gap: 24px;
   padding: 20px var(--gutter);
-  transition: background 0.5s var(--ease), padding 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  transition: background 0.5s var(--ease), padding 0.5s var(--ease), box-shadow 0.5s var(--ease), color 0.5s var(--ease);
 }
+
+/* header over a dark hero (home): light text until scrolled or the
+   light menu overlay opens, then back to ink */
+.site-header.on-dark:not(.is-scrolled) { color: var(--bone); }
+.site-header.on-dark:not(.is-scrolled) .lang { color: color-mix(in srgb, var(--bone) 65%, transparent); }
+.site-header.on-dark:not(.is-scrolled) .lang .on { color: var(--bone); }
+.nav-open .site-header.on-dark:not(.is-scrolled) { color: var(--ink); }
+.nav-open .site-header.on-dark:not(.is-scrolled) .lang { color: var(--ink-soft); }
+.nav-open .site-header.on-dark:not(.is-scrolled) .lang .on { color: var(--ink); }
 .site-header.is-scrolled {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -205,8 +214,8 @@ hr.quiet {
 .menu-btn span {
   display: block;
   height: 1px;
-  background: var(--ink);
-  transition: transform 0.45s var(--ease);
+  background: currentColor;
+  transition: transform 0.45s var(--ease), background 0.5s var(--ease);
   transform-origin: center;
 }
 .nav-open .menu-btn span:first-child { transform: translateY(7.5px) rotate(45deg); }
